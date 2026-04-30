@@ -1,0 +1,63 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/rails
+      - /rails/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_ENV: ${RAILS_ENV:-development}
+      PORT: 3000
+      CHOKIDAR_USEPOLLING: "true"
+    depends_on:
+      - db
+      - selenium_chrome
+    command: bundle exec rails s -b 0.0.0.0 -p 3000 -P /tmp/server.pid
+    tty: true
+    stdin_open: true
+
+  css:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/rails
+      - /rails/node_modules
+    environment:
+      RAILS_ENV: ${RAILS_ENV:-development}
+      CHOKIDAR_USEPOLLING: "true"
+    entrypoint: /rails/docker-entrypoint-css.sh
+    command: yarn build:css:watch
+    tty: true
+
+  js:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/rails
+      - /rails/node_modules
+    environment:
+      RAILS_ENV: ${RAILS_ENV:-development}
+      CHOKIDAR_USEPOLLING: "true"
+    command: yarn build:watch
+    tty: true
+
+  db:
+    image: postgres:15
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+
+  selenium_chrome:
+    platform: linux/amd64
+    image: selenium/standalone-chrome:latest
+    ports:
+      - 4444:4444
+    depends_on:
+      - db
