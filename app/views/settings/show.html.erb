@@ -1,0 +1,71 @@
+<% content_for :title, "設定 — おやつ貯金" %>
+
+<div class="app-shell">
+  <header class="topbar">
+    <h1>設定</h1>
+  </header>
+
+  <main class="content">
+    <%= render "shared/flash" %>
+
+    <%# ===== 交換レート ===== %>
+    <section class="card">
+      <h2 class="section-title">
+        <span class="pip"></span>
+        おやつとの交換レート
+      </h2>
+      <p class="muted">おやつ1個を食べるのに必要なコイン数を決められます。</p>
+
+      <%= form_with model: @user, url: settings_path, method: :patch, class: "settings-form" do |f| %>
+        <div class="field" data-controller="stepper"
+             data-stepper-min-value="1" data-stepper-max-value="100">
+          <%= f.label :snack_cost_in_coins, "1個あたりのコイン", class: "field-label" %>
+          <div class="stepper">
+            <button type="button" class="stepper-btn" data-action="click->stepper#dec">−</button>
+            <%= f.number_field :snack_cost_in_coins,
+                               min: 1, max: 100,
+                               class: "stepper-input",
+                               data: { stepper_target: "input" } %>
+            <button type="button" class="stepper-btn" data-action="click->stepper#inc">＋</button>
+          </div>
+        </div>
+        <%= f.submit "保存", class: "btn-primary" %>
+      <% end %>
+    </section>
+
+    <%# ===== 頑張り項目 ===== %>
+    <section class="card">
+      <h2 class="section-title">
+        <span class="pip"></span>
+        頑張り項目
+        <span class="muted"><%= @effort_items.size %> / <%= EffortItem::MAX_PER_USER %></span>
+      </h2>
+
+      <ul class="effort-list">
+        <% @effort_items.each do |item| %>
+          <li class="effort-row">
+            <div class="effort-text">
+              <p class="effort-name"><%= item.name %></p>
+              <p class="effort-meta">+<%= item.coins_per_check %> コイン</p>
+            </div>
+            <div class="row-actions">
+              <%= link_to "編集", edit_effort_item_path(item), class: "btn-ghost" %>
+              <%= button_to "削除", effort_item_path(item),
+                            method: :delete,
+                            form: { data: { turbo_confirm: "削除しますか？" } },
+                            class: "btn-ghost danger" %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+
+      <% if @effort_items.size < EffortItem::MAX_PER_USER %>
+        <%= link_to "＋ 頑張り項目を追加", new_effort_item_path, class: "btn-primary" %>
+      <% else %>
+        <p class="muted">頑張り項目は <%= EffortItem::MAX_PER_USER %> つまで設定できます。</p>
+      <% end %>
+    </section>
+  </main>
+
+  <%= render "shared/bottom_nav", active: :settings %>
+</div>
