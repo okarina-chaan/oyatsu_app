@@ -27,5 +27,5 @@
 
   <%= f.hidden_field :position %>
 
-  <%= f.submit class: "btn-primary" %>
+  <%= f.submit effort_item.new_record? ? "登録する" : "更新する", class: "btn-primary" %>
 <% end %>
