@@ -8,10 +8,16 @@ class SnacksController < ApplicationController
   end
 
   def new
+    if coins_insufficient?
+      redirect_to root_path, alert: "コインが足りません！もう少し頑張ろう！" and return
+    end
     @snack = Current.user.snacks.build(eaten_on: Date.current, rating: 5)
   end
 
   def create
+    if coins_insufficient?
+      redirect_to root_path, alert: "コインが足りません！もう少し頑張ろう！" and return
+    end
     @snack = Current.user.snacks.build(snack_params)
     @snack.coins_spent = Current.user.snack_cost_in_coins
     if @snack.save
@@ -46,5 +52,9 @@ class SnacksController < ApplicationController
 
   def snack_params
     params.expect(snack: [:name, :category, :rating, :note, :eaten_on, :photo])
+  end
+
+  def coins_insufficient?
+    Current.user.coin_balance < Current.user.snack_cost_in_coins
   end
 end

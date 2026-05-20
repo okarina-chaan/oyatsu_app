@@ -1,28 +1,45 @@
-<h1>Sign in</h1>
+<% content_for :title, "ログイン — おやつ貯金" %>
 
-<%= form_with url: session_url do |form| %>
-  <% if alert = flash[:alert] %>
-    <p><%= alert %></p>
-  <% end %>
-  <% if notice = flash[:notice] %>
-    <p><%= notice %></p>
-  <% end %>
+<div class="app-shell">
+  <header class="topbar">
+    <h1>
+      <span class="piggy-mini" aria-hidden="true">🐷</span>
+      ログイン
+    </h1>
+    <p class="sub">おやつ貯金へようこそ</p>
+  </header>
 
-  <div>
-    <%= form.label :email_address, style: "display: block" %>
-    <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address] %>
-  </div>
+  <main class="content">
+    <%= render "shared/flash" %>
 
-  <div>
-    <%= form.label :password, style: "display: block" %>
-    <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72 %>
-  </div>
+    <section class="card">
+      <%= form_with url: session_url, class: "session-form" do |form| %>
+        <div class="field">
+          <%= form.label :email_address, "メールアドレス", class: "field-label" %>
+          <%= form.email_field :email_address,
+                               required: true, autofocus: true,
+                               autocomplete: "username",
+                               placeholder: "you@example.com",
+                               value: params[:email_address],
+                               class: "input" %>
+        </div>
 
-  <div>
-    <%= form.submit "Sign in" %>
-  </div>
-<% end %>
+        <div class="field">
+          <%= form.label :password, "パスワード", class: "field-label" %>
+          <%= form.password_field :password,
+                                  required: true,
+                                  autocomplete: "current-password",
+                                  placeholder: "パスワードを入力",
+                                  maxlength: 72,
+                                  class: "input" %>
+        </div>
 
-<div>
-  <%= link_to "Forgot password?", new_password_path %>
+        <%= form.submit "ログインする", class: "btn-primary" %>
+      <% end %>
+    </section>
+
+    <p class="muted" style="text-align: center; margin-top: 12px;">
+      <%= link_to "パスワードを忘れた方はこちら", new_password_path %>
+    </p>
+  </main>
 </div>

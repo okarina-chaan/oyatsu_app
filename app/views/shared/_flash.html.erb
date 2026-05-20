@@ -1,3 +1,28 @@
+<%# Rails の flash を daisyUI Alert (soft style) で表示する %>
+<%
+  # flash key → daisyUI alert カラー modifier の対応
+  alert_class_for = {
+    notice:  "alert-success",
+    success: "alert-success",
+    alert:   "alert-warning",
+    warning: "alert-warning",
+    error:   "alert-error",
+    info:    "alert-info"
+  }.with_indifferent_access
+%>
+
 <% flash.each do |type, message| %>
-  <div class="flash flash-<%= type %>" role="alert"><%= message %></div>
+  <% color = alert_class_for[type] || "alert-info" %>
+  <div role="alert" class="alert alert-soft <%= color %> flash" data-flash="<%= type %>">
+    <%# シンプルな絵文字アイコン (テーマに沿った軽さ) %>
+    <span aria-hidden="true">
+      <% case color
+         when "alert-success" %>🎉
+      <% when "alert-warning" %>⚠️
+      <% when "alert-error" %>🚫
+      <% else %>ℹ️
+      <% end %>
+    </span>
+    <span><%= message %></span>
+  </div>
 <% end %>
