@@ -2,12 +2,17 @@
 
 <div class="app-shell">
   <header class="topbar">
-    <div>
-      <h1>
-        <span class="piggy-mini" aria-hidden="true">🐷</span>
-        <span>おやつ貯金</span>
-      </h1>
-      <p class="sub"><%= l(Date.current, format: :long) %> · 今日もえらい！</p>
+    <div class="topbar-inner">
+      <div>
+        <h1>
+          <span class="piggy-mini" aria-hidden="true">🐷</span>
+          <span>おやつ貯金</span>
+        </h1>
+        <p class="sub"><%= l(Date.current, format: :long) %> · 今日もえらい！</p>
+      </div>
+      <%= button_to session_path, method: :delete, class: "btn-logout", form: { data: { turbo_confirm: "ログアウトしますか？" } } do %>
+        ログアウト
+      <% end %>
     </div>
   </header>
 
