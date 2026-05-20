@@ -27,4 +27,9 @@ class User < ApplicationRecord
   def coins_until_next_snack
     [snack_cost_in_coins - coin_balance, 0].max
   end
+
+  # ----- 1日1回の確定 (今日もがんばった！) -----
+  def checked_in_today?
+    last_checkin_on == Date.current
+  end
 end
