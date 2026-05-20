@@ -1,3 +1,10 @@
-You can reset your password within the next 15 minutes on this password reset page:
+パスワード再設定のご案内
+
+<%= @user.name.presence || @user.email_address %> さま
+
+おやつ貯金にてパスワード再設定のリクエストを受け付けました。
+下記のリンクから、15分以内に新しいパスワードをご設定ください。
 
 <%= edit_password_url(@user.password_reset_token) %>
+
+このリクエストにお心当たりがない場合は、このメールを破棄してください。

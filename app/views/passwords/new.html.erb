@@ -1,19 +1,28 @@
-<%= form_with url: passwords_path do |form| %>
-  <% if alert = flash[:alert] %>
-    <p><%= alert %></p>
-  <% end %>
-  <% if notice = flash[:notice] %>
-    <p><%= notice %></p>
-  <% end %>
+<% content_for :title, "パスワードをお忘れの方 — おやつ貯金" %>
 
-  <h1>Forgot your password?</h1>
+<div class="app-shell">
+  <header class="topbar">
+    <%= link_to "← ログインへ戻る", new_session_path, class: "back-link" %>
+    <h1>パスワードをお忘れですか？</h1>
+    <p class="sub">登録メールアドレスに再設定リンクを送ります。</p>
+  </header>
 
-  <div>
-    <%= form.label :email_address, style: "display: block" %>
-    <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address" %>
-  </div>
+  <main class="content">
+    <%= render "shared/flash" %>
 
-  <div>
-    <%= form.submit "Email reset instructions" %>
-  </div>
-<% end %>
+    <section class="card">
+      <%= form_with url: passwords_path do |form| %>
+        <div class="field">
+          <%= form.label :email_address, "メールアドレス", class: "field-label" %>
+          <%= form.email_field :email_address,
+                               required: true, autofocus: true,
+                               autocomplete: "username",
+                               placeholder: "you@example.com",
+                               class: "input" %>
+        </div>
+
+        <%= form.submit "再設定リンクをメールで受け取る", class: "btn-primary" %>
+      <% end %>
+    </section>
+  </main>
+</div>

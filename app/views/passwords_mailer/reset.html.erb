@@ -1,4 +1,11 @@
-<h1>Reset your password</h1>
+<h1>パスワード再設定のご案内</h1>
 
-<p>You can reset your password within the next 15 minutes on
-  <%= link_to "this password reset page", edit_password_url(@user.password_reset_token) %>.</p>
+<p><%= @user.name.presence || @user.email_address %> さま</p>
+
+<p>おやつ貯金にてパスワード再設定のリクエストを受け付けました。</p>
+
+<p>下記のリンクから、15分以内に新しいパスワードをご設定ください。</p>
+
+<p><%= link_to "パスワードを再設定する", edit_password_url(@user.password_reset_token) %></p>
+
+<p>このリクエストにお心当たりがない場合は、このメールを破棄してください。</p>

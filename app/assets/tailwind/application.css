@@ -404,13 +404,11 @@
   .nav-item.active { color: var(--peach-500); }
   .nav-icon { font-size: 22px; line-height: 1; }
 
-  /* --- フラッシュ --- */
+  /* --- フラッシュ (daisyUI alert を使うため装飾は最低限) --- */
   .flash {
-    border-radius: 14px;
-    padding: 10px 14px;
     margin-bottom: 8px;
     font-size: 14px;
+    /* daisyUI alert の角丸を oyatsu テーマに揃える */
+    border-radius: 16px;
   }
-  .flash-notice { background: #E6F4E8; color: #2F6F3A; }
-  .flash-alert  { background: #FFEAEA; color: #B33B47; }
 }
