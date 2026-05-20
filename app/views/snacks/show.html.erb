@@ -1,0 +1,46 @@
+<% content_for :title, "#{@snack.name} — おやつ貯金" %>
+
+<div class="app-shell">
+  <header class="topbar">
+    <%= link_to "← 一覧へ戻る", snacks_path, class: "back-link" %>
+    <h1><%= @snack.name %></h1>
+  </header>
+
+  <main class="content">
+    <%= render "shared/flash" %>
+
+    <section class="card">
+      <div class="snack-thumb snack-thumb-<%= @snack.category %>" aria-hidden="true">
+        <% if @snack.photo.attached? %>
+          <%= image_tag @snack.photo %>
+        <% else %>
+          <%= render "thumb_#{@snack.category}", snack: @snack %>
+        <% end %>
+      </div>
+
+      <dl class="snack-detail">
+        <dt>種類</dt>
+        <dd><%= t("snacks.categories.#{@snack.category}") %></dd>
+        <dt>満足度</dt>
+        <dd><%= "♥" * @snack.rating + "♡" * (5 - @snack.rating) %></dd>
+        <dt>食べた日</dt>
+        <dd><%= l(@snack.eaten_on, format: :long) %></dd>
+        <dt>消費コイン</dt>
+        <dd><%= @snack.coins_spent %></dd>
+        <% if @snack.note.present? %>
+          <dt>感想</dt>
+          <dd><%= simple_format(@snack.note) %></dd>
+        <% end %>
+      </dl>
+
+      <div class="row-actions">
+        <%= link_to "編集", edit_snack_path(@snack), class: "btn-ghost" %>
+        <%= button_to "削除", snack_path(@snack), method: :delete,
+                      form: { data: { turbo_confirm: "この記録を削除しますか？" } },
+                      class: "btn-ghost danger" %>
+      </div>
+    </section>
+  </main>
+
+  <%= render "shared/bottom_nav", active: :list %>
+</div>

@@ -1,0 +1,71 @@
+<%= form_with model: @snack, class: "snack-form", multipart: true do |f| %>
+  <% if @snack.errors.any? %>
+    <ul class="form-errors">
+      <% @snack.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%# 写真 %>
+  <div class="field" data-controller="photo-preview">
+    <%= f.label :photo, "写真（任意）", class: "field-label" %>
+    <%= f.file_field :photo, accept: "image/*",
+                             class: "photo-input",
+                             data: { action: "change->photo-preview#load",
+                                     photo_preview_target: "input" } %>
+    <div data-photo-preview-target="preview" class="photo-preview"></div>
+  </div>
+
+  <%# 名前 %>
+  <div class="field">
+    <%= f.label :name, "何を食べた？", class: "field-label" %>
+    <%= f.text_field :name, class: "input", placeholder: "例: 苺ショートケーキ", maxlength: 60 %>
+  </div>
+
+  <%# 種類 (chip group) %>
+  <div class="field" data-controller="chip-group">
+    <span class="field-label">種類</span>
+    <div class="chips">
+      <% Snack.categories.each_key do |key| %>
+        <label class="chip <%= 'active' if @snack.category.to_s == key %>"
+               data-action="click->chip-group#select">
+          <%= f.radio_button :category, key, class: "hidden" %>
+          <%= t("snacks.categories.#{key}") %>
+        </label>
+      <% end %>
+    </div>
+  </div>
+
+  <%# 満足度 hearts %>
+  <div class="field"
+       data-controller="heart-rating"
+       data-heart-rating-value-value="<%= @snack.rating || 5 %>">
+    <span class="field-label">満足度</span>
+    <div class="heart-row">
+      <% (1..5).each do |i| %>
+        <button type="button"
+                class="heart"
+                data-action="click->heart-rating#pick"
+                data-heart-rating-index-param="<%= i %>"
+                data-heart-rating-target="heart">♡</button>
+      <% end %>
+      <%= f.hidden_field :rating, data: { heart_rating_target: "input" } %>
+    </div>
+  </div>
+
+  <%# 食べた日 %>
+  <div class="field">
+    <%= f.label :eaten_on, "食べた日", class: "field-label" %>
+    <%= f.date_field :eaten_on, class: "input" %>
+  </div>
+
+  <%# 感想 %>
+  <div class="field">
+    <%= f.label :note, "感想メモ", class: "field-label" %>
+    <%= f.text_area :note, rows: 4, class: "input" %>
+  </div>
+
+  <%= f.submit "#{Current.user.snack_cost_in_coins}コイン使ってごほうびを記録 🎀",
+               class: "btn-primary" %>
+<% end %>

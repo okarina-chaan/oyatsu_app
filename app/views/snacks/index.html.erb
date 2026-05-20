@@ -1,0 +1,24 @@
+<% content_for :title, "おやつ一覧 — おやつ貯金" %>
+
+<div class="app-shell">
+  <header class="topbar">
+    <h1>おやつ一覧</h1>
+    <p class="sub">
+      今月 <strong><%= @month_count %></strong> 個 / 累計 <strong><%= @total_coins %></strong> コイン使った
+    </p>
+  </header>
+
+  <main class="content">
+    <%= render "shared/flash" %>
+
+    <% if @snacks.empty? %>
+      <p class="muted">まだ記録がありません。<%= link_to "最初のおやつを記録する", new_snack_path %></p>
+    <% else %>
+      <ul class="snack-list">
+        <%= render partial: "snack_card", collection: @snacks, as: :snack %>
+      </ul>
+    <% end %>
+  </main>
+
+  <%= render "shared/bottom_nav", active: :list %>
+</div>
