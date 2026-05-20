@@ -8,7 +8,7 @@ class CreateEffortChecks < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
-    add_index :effort_checks, [:effort_item_id, :checked_on], unique: true
-    add_index :effort_checks, [:user_id, :checked_on]
+    add_index :effort_checks, [ :effort_item_id, :checked_on ], unique: true
+    add_index :effort_checks, [ :user_id, :checked_on ]
   end
 end

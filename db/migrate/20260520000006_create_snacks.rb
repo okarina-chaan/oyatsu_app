@@ -11,6 +11,6 @@ class CreateSnacks < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
-    add_index :snacks, [:user_id, :eaten_on]
+    add_index :snacks, [ :user_id, :eaten_on ]
   end
 end

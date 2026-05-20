@@ -8,6 +8,6 @@ class CreateEffortItems < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
-    add_index :effort_items, [:user_id, :position], unique: true
+    add_index :effort_items, [ :user_id, :position ], unique: true
   end
 end
