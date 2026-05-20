@@ -207,12 +207,61 @@
     font-weight: 700;
     cursor: pointer;
     transition: transform .15s ease, background .2s ease;
+    display: inline-grid;
+    place-items: center;
   }
   .check:active { transform: scale(.92); }
   .check.checked {
     background: var(--peach-500);
     border-color: var(--peach-500);
     color: #fff;
+  }
+
+  /* チェックボックス + 見た目用 .check.check-display を組み合わせる方式 */
+  .check-wrap {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+  .check-input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    margin: 0;
+    z-index: 1;
+  }
+  .check-input:disabled { cursor: not-allowed; }
+  .check-input:checked ~ .check-display {
+    background: var(--peach-500);
+    border-color: var(--peach-500);
+    color: #fff;
+  }
+  .check-input:checked ~ .check-display::before { content: "✓"; }
+  .check-input:focus-visible ~ .check-display {
+    outline: 2px solid var(--peach-300);
+    outline-offset: 2px;
+  }
+
+  /* 確定済み (locked) 状態 */
+  .effort-row.locked { background: linear-gradient(90deg, #FAF6F0, #FFFBF3); opacity: .85; }
+  .effort-row.locked .check-wrap { cursor: not-allowed; }
+  .effort-row.locked .check-display { opacity: .55; }
+  .effort-row.locked .effort-name { color: var(--ink-700); }
+
+  /* 「今日もがんばった！」ボタンの確定後グレーアウト */
+  .btn-primary.btn-locked,
+  .btn-primary:disabled {
+    background: var(--ink-300);
+    color: #fff;
+    box-shadow: 0 4px 0 var(--ink-500);
+    cursor: not-allowed;
+    opacity: .85;
+  }
+  .btn-primary.btn-locked:active,
+  .btn-primary:disabled:active {
+    transform: none;
+    box-shadow: 0 4px 0 var(--ink-500);
   }
 
   /* --- ボタン --- */

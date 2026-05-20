@@ -1,7 +1,10 @@
-<%# locals: (item:) %>
-<li class="effort-row <%= 'done' if item.checked_on? %>"
-    data-controller="effort-check"
-    data-effort-check-checked-value="<%= item.checked_on? %>">
+<%# locals: (item:, locked: false) %>
+<%
+  already_checked = item.checked_on?
+  done_class = (locked && already_checked) ? "done" : nil
+  disabled   = locked
+%>
+<li class="effort-row <%= done_class %> <%= 'locked' if locked %>">
   <div class="effort-text">
     <p class="effort-name"><%= item.name %></p>
     <p class="effort-meta">
@@ -10,21 +13,18 @@
     </p>
   </div>
 
-  <% if item.checked_on? %>
-    <%= button_to effort_item_check_path(item),
-                  method: :delete,
-                  form: { data: { turbo_frame: dom_id(item) } },
-                  class: "check checked",
-                  aria: { label: "達成を取り消す" } do %>
-      ✓
-    <% end %>
-  <% else %>
-    <%= button_to effort_item_check_path(item),
-                  method: :post,
-                  form: { data: { turbo_frame: dom_id(item) } },
-                  class: "check",
-                  aria: { label: "達成にする" } do %>
-      <span aria-hidden="true">　</span>
-    <% end %>
-  <% end %>
+  <label class="check-wrap"
+         aria-label="<%= locked ? '今日は確定済みです' : '今日達成したらチェック' %>">
+    <%= check_box_tag "effort_item_ids[]",
+                      item.id,
+                      already_checked,
+                      disabled: disabled,
+                      id: "effort_item_#{item.id}",
+                      class: "check-input",
+                      data: { action: ("change->daily-checkin#updateCounter" unless locked) } %>
+    <span class="check check-display <%= 'checked' if already_checked %>"
+          aria-hidden="true">
+      <%= already_checked ? "✓" : "" %>
+    </span>
+  </label>
 </li>
