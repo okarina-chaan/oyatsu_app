@@ -1,0 +1,17 @@
+<%= turbo_stream.replace(dom_id(@effort_item)) do %>
+  <%= turbo_frame_tag dom_id(@effort_item) do %>
+    <%= render "home/effort_row", item: @effort_item %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.replace "coin_balance" do %>
+  <%= turbo_frame_tag "coin_balance" do %>
+    <% balance   = Current.user.coin_balance %>
+    <% cost      = Current.user.snack_cost_in_coins %>
+    <% remaining = Current.user.coins_until_next_snack %>
+    <% progress  = cost.positive? ? [balance.to_f / cost, 1.0].min : 0.0 %>
+    <%= render "home/balance",
+               balance: balance, cost: cost,
+               remaining: remaining, progress: progress %>
+  <% end %>
+<% end %>

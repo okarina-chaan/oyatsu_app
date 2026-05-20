@@ -1,0 +1,59 @@
+<% content_for :title, "おやつ貯金" %>
+
+<div class="app-shell">
+  <header class="topbar">
+    <div>
+      <h1>
+        <span class="piggy-mini" aria-hidden="true">🐷</span>
+        <span>おやつ貯金</span>
+      </h1>
+      <p class="sub"><%= l(Date.current, format: :long) %> · 今日もえらい！</p>
+    </div>
+  </header>
+
+  <main class="content">
+    <%= render "shared/flash" %>
+
+    <%# ====== 貯金箱カード ====== %>
+    <%= turbo_frame_tag "coin_balance" do %>
+      <%= render "balance",
+                 balance: @balance, cost: @cost,
+                 remaining: @remaining, progress: @progress %>
+    <% end %>
+
+    <%# ====== 頑張り項目 ====== %>
+    <section>
+      <h2 class="section-title">
+        <span class="pip"></span>
+        今日の頑張り
+        <span class="muted">
+          <%= @effort_items.count(&:checked_on?) %> / <%= @effort_items.size %>
+        </span>
+      </h2>
+
+      <ul id="effort_items" class="effort-list">
+        <% @effort_items.each do |item| %>
+          <%= turbo_frame_tag dom_id(item) do %>
+            <%= render "effort_row", item: item %>
+          <% end %>
+        <% end %>
+      </ul>
+
+      <% if @effort_items.empty? %>
+        <p class="muted">
+          まだ頑張り項目がありません。
+          <%= link_to "設定から追加", settings_path %>しましょう。
+        </p>
+      <% end %>
+    </section>
+
+    <%# ====== おやつタイム導線 ====== %>
+    <% if @remaining.zero? %>
+      <p class="callout-cta">
+        <%= link_to "おやつを記録する 🎀", new_snack_path, class: "btn-primary" %>
+      </p>
+    <% end %>
+  </main>
+
+  <%= render "shared/bottom_nav", active: :home %>
+</div>

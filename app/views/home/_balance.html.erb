@@ -1,0 +1,18 @@
+<%# locals: (balance:, cost:, remaining:, progress:) %>
+<section class="card piggy-hero">
+  <div class="piggy-bank" aria-hidden="true">🐷</div>
+  <p class="balance">
+    <span class="num"><%= balance %></span>
+    <span class="denom">/ <%= cost %> <span class="coin" aria-hidden="true">🪙</span></span>
+  </p>
+  <p class="callout">
+    <% if remaining.zero? %>
+      おやつタイム！🎉
+    <% else %>
+      あと <strong><%= remaining %></strong> コインでおやつタイム！
+    <% end %>
+  </p>
+  <div class="progress-bar">
+    <div class="progress-fill" style="width: <%= (progress * 100).round %>%"></div>
+  </div>
+</section>

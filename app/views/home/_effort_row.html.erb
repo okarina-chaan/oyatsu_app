@@ -1,0 +1,30 @@
+<%# locals: (item:) %>
+<li class="effort-row <%= 'done' if item.checked_on? %>"
+    data-controller="effort-check"
+    data-effort-check-checked-value="<%= item.checked_on? %>">
+  <div class="effort-text">
+    <p class="effort-name"><%= item.name %></p>
+    <p class="effort-meta">
+      <span class="coin" aria-hidden="true">🪙</span>
+      <span class="coin-amount">+<%= item.coins_per_check %> コイン</span>
+    </p>
+  </div>
+
+  <% if item.checked_on? %>
+    <%= button_to effort_item_check_path(item),
+                  method: :delete,
+                  form: { data: { turbo_frame: dom_id(item) } },
+                  class: "check checked",
+                  aria: { label: "達成を取り消す" } do %>
+      ✓
+    <% end %>
+  <% else %>
+    <%= button_to effort_item_check_path(item),
+                  method: :post,
+                  form: { data: { turbo_frame: dom_id(item) } },
+                  class: "check",
+                  aria: { label: "達成にする" } do %>
+      <span aria-hidden="true">　</span>
+    <% end %>
+  <% end %>
+</li>
