@@ -6,3 +6,18 @@ import { application } from "./application"
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import EffortCheckController from "./effort_check_controller"
+application.register("effort-check", EffortCheckController)
+
+import ChipGroupController from "./chip_group_controller"
+application.register("chip-group", ChipGroupController)
+
+import HeartRatingController from "./heart_rating_controller"
+application.register("heart-rating", HeartRatingController)
+
+import StepperController from "./stepper_controller"
+application.register("stepper", StepperController)
+
+import PhotoPreviewController from "./photo_preview_controller"
+application.register("photo-preview", PhotoPreviewController)
