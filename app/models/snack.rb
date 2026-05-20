@@ -1,6 +1,5 @@
 class Snack < ApplicationRecord
   belongs_to :user
-  has_one_attached :photo
 
   enum :category, { yougashi: 0, wagashi: 1, shoppai: 2 }, prefix: true
 

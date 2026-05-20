@@ -51,7 +51,7 @@ class SnacksController < ApplicationController
   end
 
   def snack_params
-    params.expect(snack: [ :name, :category, :rating, :note, :eaten_on, :photo ])
+    params.expect(snack: [ :name, :category, :rating, :note, :eaten_on ])
   end
 
   def coins_insufficient?
