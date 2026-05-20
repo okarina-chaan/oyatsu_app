@@ -2,24 +2,26 @@ ja:
   date:
     formats:
       default: "%Y/%m/%d"
-      long:    "%-m月%-d日（%a）"
-      short:   "%-m/%-d"
+      long: "%-m月%-d日（%a）"
+      short: "%-m/%-d"
     day_names: [日曜日, 月曜日, 火曜日, 水曜日, 木曜日, 金曜日, 土曜日]
     abbr_day_names: [日, 月, 火, 水, 木, 金, 土]
-    month_names: [~, 1月, 2月, 3月, 4月, 5月, 6月, 7月, 8月, 9月, 10月, 11月, 12月]
-    abbr_month_names: [~, 1月, 2月, 3月, 4月, 5月, 6月, 7月, 8月, 9月, 10月, 11月, 12月]
+    month_names:
+      [~, 1月, 2月, 3月, 4月, 5月, 6月, 7月, 8月, 9月, 10月, 11月, 12月]
+    abbr_month_names:
+      [~, 1月, 2月, 3月, 4月, 5月, 6月, 7月, 8月, 9月, 10月, 11月, 12月]
 
   time:
     formats:
       default: "%Y/%m/%d %H:%M"
-      long:    "%-m月%-d日 %H:%M"
-      short:   "%-m/%-d %H:%M"
+      long: "%-m月%-d日 %H:%M"
+      short: "%-m/%-d %H:%M"
 
   snacks:
     categories:
       yougashi: "🍰 洋菓子"
-      wagashi:  "🍡 和菓子"
-      shoppai:  "🥨 しょっぱい"
+      wagashi: "🍡 和菓子"
+      shoppai: "🥨 しょっぱい"
 
   activerecord:
     models:
@@ -49,3 +51,15 @@ ja:
         eaten_on: 食べた日
         photo: 写真
         coins_spent: 消費コイン
+    errors:
+      messages:
+        blank: "を入力してください"
+        too_long: "は%{count}文字以内で入力してください"
+        too_short: "は%{count}文字以上で入力してください"
+        taken: "はすでに使用されています"
+        invalid: "は不正な値です"
+        not_a_number: "は数値で入力してください"
+        greater_than_or_equal_to: "は%{count}以上の値にしてください"
+        less_than_or_equal_to: "は%{count}以下の値にしてください"
+        inclusion: "は一覧にありません"
+        confirmation: "が一致しません"
