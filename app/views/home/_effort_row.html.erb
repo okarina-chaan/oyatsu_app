@@ -23,8 +23,6 @@
                       class: "check-input",
                       data: { action: ("change->daily-checkin#updateCounter" unless locked) } %>
     <span class="check check-display <%= 'checked' if already_checked %>"
-          aria-hidden="true">
-      <%= already_checked ? "✓" : "" %>
-    </span>
+          aria-hidden="true"></span>
   </label>
 </li>
