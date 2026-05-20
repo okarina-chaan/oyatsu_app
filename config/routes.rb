@@ -3,9 +3,17 @@ Rails.application.routes.draw do
   resource  :session
   resources :passwords, param: :token
 
+  # アプリ本体
+  root to: "home#show"
+  resource  :home,     only: :show
+  resource  :settings, only: %i[show update]
+
+  resources :effort_items, except: %i[show] do
+    resource :check, only: %i[create destroy], controller: "effort_checks"
+  end
+
+  resources :snacks
+
   # Health check
   get "up" => "rails/health#show", as: :rails_health_check
-
-  root to: "home#index"
-  get "home/index"
 end

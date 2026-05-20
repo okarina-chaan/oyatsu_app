@@ -1,0 +1,24 @@
+<% content_for :title, "頑張り項目一覧" %>
+
+<div class="app-shell">
+  <header class="topbar">
+    <%= link_to "← 設定へ戻る", settings_path, class: "back-link" %>
+    <h1>頑張り項目一覧</h1>
+  </header>
+
+  <main class="content">
+    <ul class="effort-list">
+      <% @effort_items.each do |item| %>
+        <li class="effort-row">
+          <div class="effort-text">
+            <p class="effort-name"><%= item.name %></p>
+            <p class="effort-meta">+<%= item.coins_per_check %> コイン</p>
+          </div>
+          <%= link_to "編集", edit_effort_item_path(item), class: "btn-ghost" %>
+        </li>
+      <% end %>
+    </ul>
+  </main>
+
+  <%= render "shared/bottom_nav", active: :settings %>
+</div>

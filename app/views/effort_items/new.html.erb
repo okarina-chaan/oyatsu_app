@@ -1,0 +1,16 @@
+<% content_for :title, "頑張り項目を追加" %>
+
+<div class="app-shell">
+  <header class="topbar">
+    <%= link_to "← 設定へ戻る", settings_path, class: "back-link" %>
+    <h1>頑張り項目を追加</h1>
+  </header>
+
+  <main class="content">
+    <section class="card">
+      <%= render "form", effort_item: @effort_item %>
+    </section>
+  </main>
+
+  <%= render "shared/bottom_nav", active: :settings %>
+</div>
