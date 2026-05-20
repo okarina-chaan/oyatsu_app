@@ -1,0 +1,25 @@
+<%# locals: (snack:) %>
+<li class="snack-card">
+  <%= link_to snack_path(snack), class: "snack-link" do %>
+    <div class="snack-thumb snack-thumb-<%= snack.category %>" aria-hidden="true">
+      <% if snack.photo.attached? %>
+        <%= image_tag snack.photo %>
+      <% else %>
+        <%= render "thumb_#{snack.category}", snack: snack %>
+      <% end %>
+    </div>
+    <div class="snack-info">
+      <p class="snack-name"><%= snack.name %></p>
+      <p class="snack-meta">
+        <span class="snack-cat"><%= t("snacks.categories.#{snack.category}") %></span>
+        <span class="snack-rating" aria-label="満足度 <%= snack.rating %>">
+          <%= "♥" * snack.rating + "♡" * (5 - snack.rating) %>
+        </span>
+        <span class="snack-date"><%= l(snack.eaten_on, format: :short) %></span>
+      </p>
+      <% if snack.note.present? %>
+        <p class="snack-note"><%= truncate(snack.note, length: 60) %></p>
+      <% end %>
+    </div>
+  <% end %>
+</li>

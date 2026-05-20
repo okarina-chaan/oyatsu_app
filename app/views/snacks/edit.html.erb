@@ -1,0 +1,17 @@
+<% content_for :title, "おやつを編集 — おやつ貯金" %>
+
+<div class="app-shell">
+  <header class="topbar">
+    <%= link_to "← 一覧へ戻る", snacks_path, class: "back-link" %>
+    <h1>おやつを編集</h1>
+  </header>
+
+  <main class="content">
+    <%= render "shared/flash" %>
+    <section class="card">
+      <%= render "form" %>
+    </section>
+  </main>
+
+  <%= render "shared/bottom_nav", active: :list %>
+</div>
