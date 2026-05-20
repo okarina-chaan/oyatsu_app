@@ -1,0 +1,74 @@
+<% content_for :title, "新規登録 — おやつ貯金" %>
+
+<div class="app-shell">
+  <header class="topbar">
+    <h1>
+      <span class="piggy-mini" aria-hidden="true">🐷</span>
+      新規登録
+    </h1>
+    <p class="sub">おやつ貯金をはじめましょう</p>
+  </header>
+
+  <main class="content">
+    <%= render "shared/flash" %>
+
+    <section class="card">
+      <%= form_with model: @user, url: registration_path, class: "session-form" do |form| %>
+        <% if @user.errors.any? %>
+          <div class="field-error-summary">
+            <% @user.errors.full_messages.each do |msg| %>
+              <p><%= msg %></p>
+            <% end %>
+          </div>
+        <% end %>
+
+        <div class="field">
+          <%= form.label :name, "ニックネーム", class: "field-label" %>
+          <%= form.text_field :name,
+                              required: true,
+                              autofocus: true,
+                              autocomplete: "nickname",
+                              placeholder: "おやつ太郎",
+                              class: "input" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :email_address, "メールアドレス", class: "field-label" %>
+          <%= form.email_field :email_address,
+                               required: true,
+                               autocomplete: "email",
+                               placeholder: "you@example.com",
+                               class: "input" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :password, "パスワード", class: "field-label" %>
+          <%= form.password_field :password,
+                                  required: true,
+                                  autocomplete: "new-password",
+                                  placeholder: "8文字以上",
+                                  minlength: 8,
+                                  maxlength: 72,
+                                  class: "input" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :password_confirmation, "パスワード（確認）", class: "field-label" %>
+          <%= form.password_field :password_confirmation,
+                                  required: true,
+                                  autocomplete: "new-password",
+                                  placeholder: "もう一度入力してください",
+                                  maxlength: 72,
+                                  class: "input" %>
+        </div>
+
+        <%= form.submit "アカウントを作成する", class: "btn-primary" %>
+      <% end %>
+    </section>
+
+    <p class="muted" style="text-align: center;">
+      すでにアカウントをお持ちの方は
+      <%= link_to "ログイン", new_session_path %>
+    </p>
+  </main>
+</div>

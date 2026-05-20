@@ -314,6 +314,18 @@
   }
   .input:focus { outline: 2px solid var(--peach-300); }
   .form-errors { background: #FFEDED; color: var(--pink-500); border-radius: 14px; padding: 10px 14px; }
+  .field-error-summary {
+    background: #FFEDED;
+    color: var(--pink-500);
+    border-radius: 14px;
+    padding: 10px 14px;
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+  .field-error-summary p { margin: 0; }
 
   /* --- chip / カテゴリ --- */
   .chips { display: flex; flex-wrap: wrap; gap: 8px; }
