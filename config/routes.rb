@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   # Rails 8 standard authentication
   resource  :session
-  resources :passwords, param: :token
   resource  :registration, only: %i[new create]
 
   # アプリ本体
