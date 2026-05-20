@@ -19,8 +19,7 @@ application.register("heart-rating", HeartRatingController)
 import StepperController from "./stepper_controller"
 application.register("stepper", StepperController)
 
-import PhotoPreviewController from "./photo_preview_controller"
-application.register("photo-preview", PhotoPreviewController)
+
 
 import DailyCheckinController from "./daily_checkin_controller"
 application.register("daily-checkin", DailyCheckinController)

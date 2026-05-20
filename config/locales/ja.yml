@@ -49,7 +49,6 @@ ja:
         rating: 満足度
         note: 感想
         eaten_on: 食べた日
-        photo: 写真
         coins_spent: 消費コイン
     errors:
       messages:

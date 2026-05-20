@@ -11,11 +11,7 @@
 
     <section class="card">
       <div class="snack-thumb snack-thumb-<%= @snack.category %>" aria-hidden="true">
-        <% if @snack.photo.attached? %>
-          <%= image_tag @snack.photo %>
-        <% else %>
-          <%= render "thumb_#{@snack.category}", snack: @snack %>
-        <% end %>
+        <%= render "thumb_#{@snack.category}", snack: @snack %>
       </div>
 
       <dl class="snack-detail">

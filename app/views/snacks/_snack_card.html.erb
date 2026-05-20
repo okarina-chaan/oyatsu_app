@@ -2,11 +2,7 @@
 <li class="snack-card">
   <%= link_to snack_path(snack), class: "snack-link" do %>
     <div class="snack-thumb snack-thumb-<%= snack.category %>" aria-hidden="true">
-      <% if snack.photo.attached? %>
-        <%= image_tag snack.photo %>
-      <% else %>
-        <%= render "thumb_#{snack.category}", snack: snack %>
-      <% end %>
+      <%= render "thumb_#{snack.category}", snack: snack %>
     </div>
     <div class="snack-info">
       <p class="snack-name"><%= snack.name %></p>
