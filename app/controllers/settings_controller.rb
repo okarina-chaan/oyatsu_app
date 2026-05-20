@@ -17,6 +17,6 @@ class SettingsController < ApplicationController
   private
 
   def settings_params
-    params.expect(user: [:snack_cost_in_coins])
+    params.expect(user: [ :snack_cost_in_coins ])
   end
 end

@@ -43,6 +43,6 @@ class EffortItemsController < ApplicationController
   end
 
   def effort_item_params
-    params.expect(effort_item: [:name, :coins_per_check, :position])
+    params.expect(effort_item: [ :name, :coins_per_check, :position ])
   end
 end
