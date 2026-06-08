@@ -20,7 +20,7 @@ gem "jbuilder"
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
 gem "tailwindcss-ruby"
 
-gem "sqlite3", "~> 2.8"
+gem "sqlite3", "~> 2.9"
 
 gem "bcrypt"
 
